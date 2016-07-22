@@ -1,6 +1,8 @@
 # Copyright (c) 2016 Ricoh Company, Ltd. All Rights Reserved.
 # See LICENSE for more information
 
+require 'json/jwt'
+
 module RicohAPI
   module Auth
     class AccessToken < Rack::OAuth2::AccessToken::Bearer
