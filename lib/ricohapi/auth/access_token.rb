@@ -26,7 +26,7 @@ module RicohAPI
       end
 
       def expired?
-        Time.now >= Time.at(claims[:exp])
+        Time.now >= Time.at(claims[:exp]) - 10
       end
 
       private
