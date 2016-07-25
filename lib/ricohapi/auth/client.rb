@@ -13,10 +13,14 @@ module RicohAPI
       end
 
       def api_token_for!(scope)
-        idp_token = access_token!(
-          scope: DISCOVERY_RELATED_SCOPES + Array(scope)
-        )
-        idp_token.api_token_for! scope
+        if @api_token.nil? || @api_token.expired?
+          idp_token = access_token!(
+            scope: DISCOVERY_RELATED_SCOPES + Array(scope)
+          )
+          @api_token = idp_token.api_token_for! scope
+        else
+          @api_token
+        end
       end
 
       def access_token!(*args)
