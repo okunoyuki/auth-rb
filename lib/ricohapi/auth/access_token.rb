@@ -6,6 +6,7 @@ require 'json/jwt'
 module RicohAPI
   module Auth
     class AccessToken < Rack::OAuth2::AccessToken::Bearer
+      EXPIRE_MARGIN = 10
       def initialize(token, options = {})
         super options.merge(
           access_token: token
@@ -26,7 +27,7 @@ module RicohAPI
       end
 
       def expired?
-        Time.now >= Time.at(claims[:exp]) - 10
+        Time.now >= Time.at(claims[:exp]) - EXPIRE_MARGIN
       end
 
       private
