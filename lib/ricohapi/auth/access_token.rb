@@ -18,7 +18,7 @@ module RicohAPI
           scope: scope
         }
         json = JSON.parse(res.body).with_indifferent_access[scope]
-        self.class.new json[:access_token], json.merge(refresh_token: refresh_token)
+        self.class.new json[:access_token], json
       end
 
       def subject
