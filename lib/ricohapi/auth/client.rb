@@ -12,6 +12,7 @@ module RicohAPI
         )
       end
 
+      # /auth/token AND/OR /auth/discovery
       def api_token_for!(scope = nil)
         case @api_token
         when nil
@@ -26,6 +27,12 @@ module RicohAPI
         @api_token
       end
 
+      # /auth/token
+      # When refresh_token is NOT set yet:
+      #   Returns an access token from /auth/token request.
+      #   NOTE: No request to /auth/Discovery.
+      # When refresh_token is already set:
+      #   Returns a refreshed token.
       def access_token!(*args)
         token = super
         AccessToken.new token.access_token, refresh_token: token.refresh_token, scope: token.scope, expires_in: token.expires_in
