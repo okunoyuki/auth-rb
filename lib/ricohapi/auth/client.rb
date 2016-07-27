@@ -12,15 +12,18 @@ module RicohAPI
         )
       end
 
-      def api_token_for!(scope)
-        if @api_token.nil? || @api_token.expired?
+      def api_token_for!(scope = nil)
+        case @api_token
+        when nil
           idp_token = access_token!(
             scope: DISCOVERY_RELATED_SCOPES + Array(scope)
           )
           @api_token = idp_token.api_token_for! scope
-        else
-          @api_token
+        when :expired?.to_proc
+          @api_token = access_token!
         end
+        self.refresh_token = @api_token.refresh_token
+        @api_token
       end
 
       def access_token!(*args)

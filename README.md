@@ -52,9 +52,12 @@ client.resource_owner_credentials = '<your-user-id>', '<your-password>'
 api_session = client.api_token_for! '<scope>'
 ```
 
-### Obtain an access token
+### Obtain the valid access token
+
+The access token will be refreshed automatically as needed.
 
 ```ruby
+api_session = client.api_token_for!
 access_token = api_session.access_token
 ```
 
