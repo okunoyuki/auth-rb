@@ -14,6 +14,7 @@ module RicohAPI
       end
 
       def api_token_for!(scope)
+        # CAUTION: Discovery request updates the refresh_token.
         res = get DISCOVERY_ENDPOINT, {
           scope: scope
         }
